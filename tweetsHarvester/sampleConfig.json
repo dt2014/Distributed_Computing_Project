@@ -1,0 +1,38 @@
+{
+	"appConfig" : {
+		"logVerticleInstances" : 1,
+		"dbVerticleInstances" : 1,
+		"parseVerticleInstances" : 1,
+		"queryVerticleInstances" : 1
+	},
+	
+	"logConfig" : {
+	
+	},	
+	
+	"dbConfig" : {
+		"dbHost" : "144.6.226.56",
+		"dbPort" : 5984,
+		"dbName" : "/brisbane_main_roads_tweets/",
+		"dbConflictCount" : 100000
+	},
+	
+	"queryConfig" : {
+		"twHost" : "api.twitter.com",
+		"twPort" : 443,
+		"token" : "Bearer ",
+		"count" : 100,
+		"urlType": "refresh_url"
+	},
+	
+	"parseConfig" : {
+		"rawData" : [{"streetName":"PACIFIC MOTORWAY ON RAMP","coordinates":[{"latitude":"-27.615161","longitude":"153.123522"},{"latitude":"-27.614871","longitude":"153.123436"}]},{"streetName":"COOMERA OFF RAMP","coordinates":[{"latitude":"-27.865689","longitude":"153.312183"},{"latitude":"-27.865664","longitude":"153.312145"},{"latitude":"-27.863338","longitude":"153.311023"}]},{"streetName":"GATEWAY MOTORWAY ON RAMP","coordinates":[{"latitude":"-27.316029","longitude":"153.048529"},{"latitude":"-27.316039","longitude":"153.048518"},{"latitude":"-27.317789","longitude":"153.049222"},{"latitude":"-27.318322","longitude":"153.0494"},{"latitude":"-27.318607","longitude":"153.049466"}]}],
+		"tag" : "Brisbane_Main_Roads",
+		"radius" : 0.05,
+		"timeout" : 10000,
+		"interval" : 2200,
+		"skipIdx" : 0,
+		"urlType": "refresh_url"
+	}
+		
+}
