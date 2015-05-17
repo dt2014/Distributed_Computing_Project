@@ -4,12 +4,12 @@
 *.iws
 .classpath
 .project
-.pydevproject
 .settings/
 
 .gradle/
 build/
 target/
-config*.json
 
 mods/
+
+Config.json

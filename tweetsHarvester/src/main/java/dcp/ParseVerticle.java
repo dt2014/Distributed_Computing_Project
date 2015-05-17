@@ -27,8 +27,8 @@ public class ParseVerticle extends Verticle {
 		log.info("Parse Verticle started.");
 		final JsonObject config = container.config();
 		final String tag = config.getString("tag");
-		final EventBus evenBus = vertx.eventBus();
-		evenBus.setDefaultReplyTimeout(config.getLong("timeout"));
+		final EventBus eventBus = vertx.eventBus();
+		eventBus.setDefaultReplyTimeout(config.getLong("timeout"));
 		JsonArray roadInfos = config.getArray("rawData");
 		final int rowDataSize = roadInfos.size();
 		int skipIdx = config.getInteger("skipIdx");
@@ -91,7 +91,7 @@ public class ParseVerticle extends Verticle {
 				public void handle(Long timerID) {
 					log.info(String.format("CurrentBlock: %d, TotalBlocks: %d", blockCount, totalBlocks));
 			        final JsonObject queryInfo = blocks.get(blockCount);
-			        evenBus.send(Constants.QUEUE_QUERYINFO, queryInfo, new Handler<Message<String>>() {
+			        eventBus.send(Constants.QUEUE_QUERYINFO, queryInfo, new Handler<Message<String>>() {
 	                   	    public void handle(Message<String> message) {
 	                   	    	String updatehUrl = message.body();
 	                   	    	queryInfo.putString(config.getString("urlType"), updatehUrl);

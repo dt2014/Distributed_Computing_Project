@@ -1,0 +1,22 @@
+{
+	"realTimeClientsConfig" : {
+		"OAuthConsumerKey" : "",
+		"OAuthConsumerSecret" : "",
+		"OAuthAccessToken" : "",
+		"OAuthAccessTokenSecret" : ""
+	},
+	
+	"queryConfig" : {
+		
+	},
+	
+	"webServerConfig" : {
+		"host" : "127.0.0.1",
+		"port" : 9999
+	},
+	
+	"webSocketConfig" : {
+		"host" : "127.0.0.1",
+		"port" : 9998
+	}
+}
