@@ -7,9 +7,13 @@
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link href="justified-nav.css" rel="stylesheet">
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="melbourne.js"></script>
@@ -21,9 +25,9 @@
 			<nav>
 				<ul class="nav nav-justified">
 					<li><a href="index.html">Introduction</a></li>
-					<li><a href="#">Brisbane</a></li>
+					<li><a href="brisbane.html">Brisbane</a></li>
 					<li class="active"><a href="melbourne.html">Melbourne</a></li>
-					<li><a href="#">Sydney</a></li>
+					<li><a href="sydney.html">Sydney</a></li>
 					<li><a href="realtime.html">Real Time</a></li>
 				</ul>
 			</nav>
@@ -32,28 +36,42 @@
 			<h3 class="lead text-primary" style="padding-left: 10px">Main
 				Roads Tweets Mapping</h3>
 			<div class="col-md-8">
-				<div id="map-canvas" style="width: 800px; height: 800px"></div>
+				<div id="map-canvas" style="width: 100%; height: 600px"></div>
 			</div>
 			<div class="col-md-4">
+				<!-- <h4 id="feedback" style="padding-left: 10px">
+				<span>You've selected:</span> <span id="select-result">none</span>.
+				</h4> -->
 				<div class="panel-group" style="padding-left: 10px;" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-time">Select a Time Period</a>
+									href="#collapse-date">Select a date</a>
 							</h4>
 						</div>
-						<div id="collapse-time" class="panel-collapse collapse in">
+						<div id="collapse-date" class="panel-collapse collapse">
+							<div id="datepicker"></div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapse-time">Select a time period</a>
+							</h4>
+						</div>
+						<div id="collapse-time" class="panel-collapse collapse">
 							<ul class="list-group">
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-time-mr')"><span class="badge"
-										id="mr_qty">1183</span> Morning Rush</a></li>
+									onclick="sendRequest('mmrh-time-mr')"><span class="badge"
+										id="mr_qty">1273</span> Morning Rush</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-time-er')"><span class="badge"
-										id="er_qty">2263</span> Evening Rush</a></li>
+									onclick="sendRequest('mmrh-time-er')"><span class="badge"
+										id="er_qty">2470</span> Evening Rush</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-time-op')"><span class="badge"
-										id="op_qty">9940</span> Off Peak</a></li>
+									onclick="sendRequest('mmrh-time-op')"><span class="badge"
+										id="op_qty">10872</span> Off Peak</a></li>
 							</ul>
 						</div>
 					</div>
@@ -61,32 +79,32 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse2">Select a day of week</a>
+									href="#collapse-day">Select a day of week</a>
 							</h4>
 						</div>
-						<div id="collapse2" class="panel-collapse collapse">
+						<div id="collapse-day" class="panel-collapse collapse">
 							<ul class="list-group">
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-mon')"><span class="badge"
-										id="mon_qty">1516</span> Monday</a></li>
+									onclick="sendRequest('mmrh-day-mon')"><span class="badge"
+										id="mon_qty">1834</span> Monday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-tue')"><span class="badge"
-										id="tue_qty">1193</span> Tuesday</a></li>
+									onclick="sendRequest('mmrh-day-tue')"><span class="badge"
+										id="tue_qty">1451</span> Tuesday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-wed')"><span class="badge"
-										id="wed_qty">1850</span> Wednesday</a></li>
+									onclick="sendRequest('mmrh-day-wed')"><span class="badge"
+										id="wed_qty">1890</span> Wednesday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-thu')"><span class="badge"
+									onclick="sendRequest('mmrh-day-thu')"><span class="badge"
 										id="thu_qty">2452</span> Thursday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-fri')"><span class="badge"
+									onclick="sendRequest('mmrh-day-fri')"><span class="badge"
 										id="fri_qty">2234</span> Friday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-sat')"><span class="badge"
-										id="sat_qty">2278</span> Saturday</a></li>
+									onclick="sendRequest('mmrh-day-sat')"><span class="badge"
+										id="sat_qty">2380</span> Saturday</a></li>
 								<li><a class="list-group-item"
-									onclick="sendRequest('mel-day-sun')"><span class="badge"
-										id="sun_qty">1863</span> Sunday</a></li>
+									onclick="sendRequest('mmrh-day-sun')"><span class="badge"
+										id="sun_qty">2374</span> Sunday</a></li>
 							</ul>
 						</div>
 					</div>
@@ -94,40 +112,44 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse3">Select a street</a>
+									href="#collapse-road">Select a street</a>
 							</h4>
 						</div>
-						<div id="collapse3" class="panel-collapse collapse">
+						<div id="collapse-road" class="panel-collapse collapse">
 							<ul class="list-group">
-								<li><a class="list-group-item" onclick="sendRequest('mel-road-beaconsfieldparade')"><span class="badge" id="beaconsfieldparade_qty">247</span>BEACONSFIELD PARADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-burnleytunnel')"><span class="badge" id="burnleytunnel_qty">162</span>BURNLEY TUNNEL</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-burwoodhighway')"><span class="badge" id="burwoodhighway_qty">205</span>BURWOOD HIGHWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-cityroad')"><span class="badge" id="cityroad_qty">281</span>CITY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-citylink')"><span class="badge" id="citylink_qty">123</span>CITYLINK</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-dandenongroad')"><span class="badge" id="dandenongroad_qty">455</span>DANDENONG ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-drummondstreet')"><span class="badge" id="drummondstreet_qty">135</span>DRUMMOND STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-elginstreet')"><span class="badge" id="elginstreet_qty">111</span>ELGIN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-exhibitionstreet')"><span class="badge" id="exhibitionstreet_qty">348</span>EXHIBITION STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-ferntreegullyroad')"><span class="badge" id="ferntreegullyroad_qty">111</span>FERNTREE GULLY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-franklinstreet')"><span class="badge" id="franklinstreet_qty">142</span>FRANKLIN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-jackaboulevard')"><span class="badge" id="jackaboulevard_qty">171</span>JACKA BOULEVARD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-kingstreet')"><span class="badge" id="kingstreet_qty">320</span>KING STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-kingsway')"><span class="badge" id="kingsway_qty">413</span>KINGS WAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-lonsdalestreet')"><span class="badge" id="lonsdalestreet_qty">502</span>LONSDALE STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-lygonstreet')"><span class="badge" id="lygonstreet_qty">196</span>LYGON STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-napierstreet')"><span class="badge" id="napierstreet_qty">251</span>NAPIER STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-nicholsonstreet')"><span class="badge" id="nicholsonstreet_qty">186</span>NICHOLSON STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-powerstreet')"><span class="badge" id="powerstreet_qty">116</span>POWER STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-princeshighway')"><span class="badge" id="princeshighway_qty">106</span>PRINCES HIGHWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-puntroad')"><span class="badge" id="puntroad_qty">152</span>PUNT ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-queenstreet')"><span class="badge" id="queenstreet_qty">398</span>QUEEN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-queensroad')"><span class="badge" id="queensroad_qty">171</span>QUEENS ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-rathdownestreet')"><span class="badge" id="rathdownestreet_qty">158</span>RATHDOWNE STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-russellstreet')"><span class="badge" id="russellstreet_qty">607</span>RUSSELL STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-stkildaroad')"><span class="badge" id="stkildaroad_qty">473</span>ST KILDA ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-victoriaparade')"><span class="badge" id="victoriaparade_qty">126</span>VICTORIA PARADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-whitemanstreet')"><span class="badge" id="whitemanstreet_qty">203</span>WHITEMAN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mel-road-wurundjeriway')"><span class="badge" id="wurundjeriway_qty">116</span>WURUNDJERI WAY</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-albert_street')"><span class="badge" id="albert_street_qty">105</span>ALBERT STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-beaconsfield_parade')"><span class="badge" id="beaconsfield_parade_qty">272</span>BEACONSFIELD PARADE</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-burnley_tunnel')"><span class="badge" id="burnley_tunnel_qty">244</span>BURNLEY TUNNEL</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-burwood_highway')"><span class="badge" id="burwood_highway_qty">211</span>BURWOOD HIGHWAY</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-city_road')"><span class="badge" id="city_road_qty">288</span>CITY ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-citylink')"><span class="badge" id="citylink_qty">137</span>CITYLINK</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-dandenong_road')"><span class="badge" id="dandenong_road_qty">471</span>DANDENONG ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-drummond_street')"><span class="badge" id="drummond_street_qty">138</span>DRUMMOND STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-elgin_street')"><span class="badge" id="elgin_street_qty">142</span>ELGIN STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-exhibition_street')"><span class="badge" id="exhibition_street_qty">363</span>EXHIBITION STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-ferntree_gully_road')"><span class="badge" id="ferntree_gully_road_qty">116</span>FERNTREE GULLY ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-franklin_street')"><span class="badge" id="franklin_street_qty">162</span>FRANKLIN STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-harbour_esplanade')"><span class="badge" id="harbour_esplanade_qty">113</span>HARBOUR ESPLANADE</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-jacka_boulevard')"><span class="badge" id="jacka_boulevard_qty">194</span>JACKA BOULEVARD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-king_street')"><span class="badge" id="king_street_qty">335</span>KING STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-kings_way')"><span class="badge" id="kings_way_qty">450</span>KINGS WAY</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-lonsdale_street')"><span class="badge" id="lonsdale_street_qty">536</span>LONSDALE STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-lygon_street')"><span class="badge" id="lygon_street_qty">223</span>LYGON STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-napier_street')"><span class="badge" id="napier_street_qty">290</span>NAPIER STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-nicholson_street')"><span class="badge" id="nicholson_street_qty">206</span>NICHOLSON STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-power_street')"><span class="badge" id="power_street_qty">137</span>POWER STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-princes_highway')"><span class="badge" id="princes_highway_qty">119</span>PRINCES HIGHWAY</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-punt_road')"><span class="badge" id="punt_road_qty">159</span>PUNT ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-queen_street')"><span class="badge" id="queen_street_qty">426</span>QUEEN STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-queens_road')"><span class="badge" id="queens_road_qty">179</span>QUEENS ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-rathdowne_street')"><span class="badge" id="rathdowne_street_qty">181</span>RATHDOWNE STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-russell_street')"><span class="badge" id="russell_street_qty">654</span>RUSSELL STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-springvale_road')"><span class="badge" id="springvale_road_qty">107</span>SPRINGVALE ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-st_kilda_road')"><span class="badge" id="st_kilda_road_qty">497</span>ST KILDA ROAD</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-victoria_parade')"><span class="badge" id="victoria_parade_qty">138</span>VICTORIA PARADE</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-whiteman_street')"><span class="badge" id="whiteman_street_qty">231</span>WHITEMAN STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-wright_street')"><span class="badge" id="wright_street_qty">120</span>WRIGHT STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('mmrh-road-wurundjeri_way')"><span class="badge" id="wurundjeri_way_qty">123</span>WURUNDJERI WAY</a></li>
 
 							</ul>
 						</div>

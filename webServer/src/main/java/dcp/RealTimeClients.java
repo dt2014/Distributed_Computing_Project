@@ -53,7 +53,6 @@ public class RealTimeClients extends Verticle {
 		final String OAuthConsumerSecret = config.getString("OAuthConsumerSecret");
 		final String OAuthAccessToken = config.getString("OAuthAccessToken");
 		final String OAuthAccessTokenSecret = config.getString("OAuthAccessTokenSecret");
-		final JsonObject bbx = config.getObject("boundingBox");
 		//{{longitude1, latitude1}, {longitude2, latitude2}}
 		final double[][] boundingBox = {{152.668522848, -27.767440994}, {153.31787024, -26.996844991}, //Brisbane
 				{144.593741856, -38.433859306}, {145.512528832, -37.5112737225},// Melbourne

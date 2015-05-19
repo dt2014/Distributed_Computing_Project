@@ -46,19 +46,7 @@ public class WebSocketOnServer extends Verticle {
 								log.info("webSocketFrame.textData(): " + webSocketFrame.textData());
 								String[] request = webSocketFrame.textData().split("-");
 								if (request.length == 3) { //check if number of parameters is correct
-									switch (request[0]) { //city
-									case "mel":
-										eventBus.send("mel.query", webSocket.textHandlerID() + ":" + request[1] + ":" + request[2]);
-										break;
-									case "bri":
-										
-										break;
-									case "syd":
-										
-										break;
-									default:
-										break;
-									}
+									eventBus.send(Constants.QUEUE_DB_VIEW, webSocket.textHandlerID() + ":" + request[0] + ":" + request[1] + ":" + request[2]);
 								}
 							}
 						}

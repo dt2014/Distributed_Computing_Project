@@ -5,7 +5,7 @@ var markers = [];
 $(function initialize() {
     var mapCanvas = document.getElementById('map-canvas');
     var mapOptions = {
-      center: new google.maps.LatLng(-37.8166667, 144.9666667),
+      center: new google.maps.LatLng(-33.8482430125, 150.968707421183),
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -44,7 +44,7 @@ $(function() {
 		numberOfMonths: 2,
 		dateFormat: "yymmdd",
 		onSelect: function(dateText) { 
-		      sendRequest("mmrh-date-" + dateText);
+		      sendRequest("smrh-date-" + dateText);
 		   }
 	});
 });

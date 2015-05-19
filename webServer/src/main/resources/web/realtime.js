@@ -8,12 +8,12 @@ $(function initialize() {
     var mapCanvasMel = document.getElementById('map-canvas-mel');
     var mapCanvasSyd = document.getElementById('map-canvas-syd');
     var mapOptionsBri = {
-    	      center: new google.maps.LatLng(-27.3820650335, 153.0302574395050),
+    	      center: new google.maps.LatLng(-27.5, 153.0166667),
     	      zoom: 10,
     	      mapTypeId: google.maps.MapTypeId.ROADMAP
     	    }
     var mapOptionsMel = {
-      center: new google.maps.LatLng(-37.9725599375, 145.152526290705),
+      center: new google.maps.LatLng(-37.8166667, 144.9666667),
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -30,8 +30,8 @@ $(function initialize() {
 });
 
 function initSocket(){
-//    socket = new WebSocket('ws://144.6.227.137:9998/ws/?realtime');
-	socket = new WebSocket('ws://127.0.0.1:9998/ws/?realtime');
+    socket = new WebSocket('ws://144.6.227.137:9998/ws/?realtime');
+//	socket = new WebSocket('ws://127.0.0.1:9998/ws/?realtime');
     socket.onopen = function (event) {
         console.log("socketopen");
 //        document.getElementById("serviceStatus").innerHTML=' ON';
