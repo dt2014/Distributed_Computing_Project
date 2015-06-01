@@ -1,3 +1,8 @@
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
+ */
+
 var gMapBri;
 var gMapMel;
 var gMapSyd;

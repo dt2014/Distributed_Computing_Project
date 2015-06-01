@@ -1,0 +1,20 @@
+{
+	"brisbane": {
+		"url_elki_view": "http://144.6.227.137:5984/bmrh/_design/for_elki/_view/st",
+		"file_elki_in": "brisbane_in.txt",
+		"file_elki_out": "brisbane_clusters.txt",
+		"url_db": "http://144.6.227.137:5984/bmrh/"
+	},
+	"melbourne": {
+		"url_elki_view": "http://144.6.227.137:5984/mmrh/_design/for_elki/_view/st",
+		"file_elki_in": "melbourne_in.txt",
+		"file_elki_out": "melbourne_clusters.txt",
+		"url_db": "http://144.6.227.137:5984/mmrh/"
+	},
+	"sydney": {
+		"url_elki_view": "http://144.6.227.137:5984/smrh/_design/for_elki/_view/st",
+		"file_elki_in": "sydney_in.txt",
+		"file_elki_out": "sydney_clusters.txt",
+		"url_db": "http://144.6.227.137:5984/smrh/"
+	}
+}

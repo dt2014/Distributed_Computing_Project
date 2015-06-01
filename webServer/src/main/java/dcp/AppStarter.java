@@ -1,6 +1,8 @@
 package dcp;
-/*
- * @author Fengmin Deng
+
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
  */
 
 import org.vertx.java.core.AsyncResult;
@@ -10,8 +12,9 @@ import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
 
-/*
-This is the application starter
+/**
+ * This is the starter verticle for deploying verticles of WebServer, WebSocket,
+ *  QueryVertcile and RealTimeClients. 
  */
 public class AppStarter extends Verticle {
 	

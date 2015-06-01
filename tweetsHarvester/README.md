@@ -1,3 +1,7 @@
+	COMP90019 Distributed Computing Project, Semester 1 2015
+	Fengmin Deng (Student ID: 659332)
+
+
 # Tweets Harvester
 ----------
 
@@ -12,7 +16,7 @@ For installing and launching the system, these tools/environments are needed:
 ##Running the System
 - Maven Install
 - Change the 'config.json' file with parameters desired
-- Launch via command: $ vertx runzip tweetsHarvester-0.1-mod.zip -conf 'config.json'
+- Launch via command: `$ vertx runzip tweetsHarvester-0.1-mod.zip -conf config.json`
 
 ##Parameters of Application Configuration 
 ###1. "appConfig": Configuration for the application starter

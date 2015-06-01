@@ -1,3 +1,8 @@
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
+ */
+
 var gMap;
 var socket;
 var markers = [];
@@ -16,8 +21,8 @@ $(function initialize() {
 });
 
 function initSocket(){
-    socket = new WebSocket('ws://144.6.227.137:9998/ws/');
-//	socket = new WebSocket('ws://127.0.0.1:9998/ws/');
+//    socket = new WebSocket('ws://144.6.227.137:9998/ws/');
+	socket = new WebSocket('ws://127.0.0.1:9998/ws/');
     socket.onopen = function (event) {
         console.log("socketopen");
 //        document.getElementById("serviceStatus").innerHTML=' ON';
@@ -40,7 +45,7 @@ function initSocket(){
 $(function() {
 	$("#datepicker").datepicker({
 		minDate: new Date(2015, 4 - 1, 21),
-		maxDate: -1,
+		maxDate: 0,
 		numberOfMonths: 2,
 		dateFormat: "yymmdd",
 		onSelect: function(dateText) { 
@@ -55,12 +60,12 @@ function sendRequest(request) {
 	console.log(request);
 }
 
-$(window).scroll(function(){
+//$(window).scroll(function(){
 //	  $("#map-canvas").css({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"});
-	$("#map-canvas")
-    	.stop()
-    	.animate({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"}, "slow" );
-	});
+//	$("#map-canvas")
+//    	.stop()
+//    	.animate({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"}, "slow" );
+//	});
 
 function markSpot(spot) {
 	var loc = new google.maps.LatLng(spot.lat, spot.lng);

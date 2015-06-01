@@ -1,7 +1,8 @@
 package dcp;
 
-/*
- * @author Fengmin Deng
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
  */
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.net.URISyntaxException;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.EventBus;
+import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
@@ -29,9 +31,22 @@ public class WebServer extends Verticle {
 		try {
 			final String path = new File(this.getClass().getResource("/web").toURI()).getAbsolutePath();
 			server.requestHandler(new Handler<HttpServerRequest>() {
-				public void handle(HttpServerRequest req) {
+				public void handle(final HttpServerRequest req) {
 					String uri = req.uri();
-					log.info(uri);
+					log.info("uri: " + uri);
+					
+					String query = req.query();
+					if (query != null && query.equals("num_tweets")) {
+						log.info("query: " + query);
+						eventBus.send(Constants.QUEUE_NUM_TWEETS, "", new Handler<Message<JsonObject>>(){
+							@Override
+							public void handle(Message<JsonObject> reply) {
+								JsonObject numTwees = reply.body();
+								log.info("numTwees.toString(): " + numTwees.toString());
+								req.response().putHeader("Access-Control-Allow-Origin", "*").end(numTwees.toString());
+							}
+						});
+					}
 					if (uri.equals("/")) {
 						uri = "/index.html";
 					}

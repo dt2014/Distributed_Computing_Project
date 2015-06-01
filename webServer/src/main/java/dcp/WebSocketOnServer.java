@@ -1,13 +1,12 @@
 package dcp;
 
-/*
- * @author Fengmin Deng
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
  */
 
 import org.vertx.java.core.Handler;
-import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.eventbus.EventBus;
-import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.ServerWebSocket;
 import org.vertx.java.core.http.WebSocketFrame;
@@ -15,7 +14,11 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
-
+/**
+ * This verticle represents a WebSocket that serves the client with tweets data
+ * specified by the client.
+ *
+ */
 public class WebSocketOnServer extends Verticle {
 	
 	public void start() {

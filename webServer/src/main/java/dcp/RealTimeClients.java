@@ -1,9 +1,9 @@
 package dcp;
 
-/*
- * @author Fengmin Deng
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * @author Fengmin Deng (Student ID: 659332)
  */
-
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -25,7 +25,11 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-
+/**
+ * This verticle manages a list of realtime clients for pushing tweets which
+ * are sent latest and they are retrieved from Twitter Stream API.
+ *
+ */
 public class RealTimeClients extends Verticle {
 	
 	public void start() {
@@ -66,46 +70,46 @@ public class RealTimeClients extends Verticle {
         cb.setOAuthAccessToken(OAuthAccessToken);
         cb.setOAuthAccessTokenSecret(OAuthAccessTokenSecret);
 
-        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
-        twitterStream.addListener(new StatusListener() {
-			@Override
-			public void onException(Exception ex) {
-				log.error(ex.toString());
-			}
-			@Override
-			public void onStatus(Status status) {
-				String rawJSON = TwitterObjectFactory.getRawJSON(status);
-				JsonObject tweet = new JsonObject(rawJSON);
-//				log.info("tweet: " + tweet);
-				JsonObject data = validateTweet(tweet); // discard the tweets with no coordinates
-				log.info("data: " + data.toString());
-				if (data.getBoolean("valid") && (!clients.isEmpty())) {
-					for (String client : clients) {
-			        	eventBus.send(client, data.toString());
-			        }
-				}
-			}
-			@Override
-			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-				log.info("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
-			}
-			@Override
-			public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-				log.info("Got track limitation notice:" + numberOfLimitedStatuses);
-				
-			}
-			@Override
-			public void onScrubGeo(long userId, long upToStatusId) {
-				log.info("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
-			}
-			@Override
-			public void onStallWarning(StallWarning warning) {
-				log.info("Got Stall Warning:" + warning.getMessage());
-			}
-        });
-        FilterQuery filterQuery = new FilterQuery();
-        filterQuery.locations(boundingBox);
-        twitterStream.filter(filterQuery);
+//        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+//        twitterStream.addListener(new StatusListener() {
+//			@Override
+//			public void onException(Exception ex) {
+//				log.error(ex.toString());
+//			}
+//			@Override
+//			public void onStatus(Status status) {
+//				String rawJSON = TwitterObjectFactory.getRawJSON(status);
+//				JsonObject tweet = new JsonObject(rawJSON);
+////				log.info("tweet: " + tweet);
+//				JsonObject data = validateTweet(tweet); // discard the tweets with no coordinates
+//				log.info("data: " + data.toString());
+//				if (data.getBoolean("valid") && (!clients.isEmpty())) {
+//					for (String client : clients) {
+//			        	eventBus.send(client, data.toString());
+//			        }
+//				}
+//			}
+//			@Override
+//			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+//				log.info("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+//			}
+//			@Override
+//			public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+//				log.info("Got track limitation notice:" + numberOfLimitedStatuses);
+//				
+//			}
+//			@Override
+//			public void onScrubGeo(long userId, long upToStatusId) {
+//				log.info("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+//			}
+//			@Override
+//			public void onStallWarning(StallWarning warning) {
+//				log.info("Got Stall Warning:" + warning.getMessage());
+//			}
+//        });
+//        FilterQuery filterQuery = new FilterQuery();
+//        filterQuery.locations(boundingBox);
+//        twitterStream.filter(filterQuery);
 	}
 	
 	private static JsonObject validateTweet(JsonObject tweet) {
