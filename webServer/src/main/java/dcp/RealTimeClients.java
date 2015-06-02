@@ -62,13 +62,13 @@ public class RealTimeClients extends Verticle {
 				{144.593741856, -38.433859306}, {145.512528832, -37.5112737225},// Melbourne
 				{150.520928608, -34.1183470085}, {151.343020992, -33.578140996}}; // Sydney
 		
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true);
-        cb.setJSONStoreEnabled(true);
-        cb.setOAuthConsumerKey(OAuthConsumerKey);
-        cb.setOAuthConsumerSecret(OAuthConsumerSecret);
-        cb.setOAuthAccessToken(OAuthAccessToken);
-        cb.setOAuthAccessTokenSecret(OAuthAccessTokenSecret);
+//		ConfigurationBuilder cb = new ConfigurationBuilder();
+//        cb.setDebugEnabled(true);
+//        cb.setJSONStoreEnabled(true);
+//        cb.setOAuthConsumerKey(OAuthConsumerKey);
+//        cb.setOAuthConsumerSecret(OAuthConsumerSecret);
+//        cb.setOAuthAccessToken(OAuthAccessToken);
+//        cb.setOAuthAccessTokenSecret(OAuthAccessTokenSecret);
 
 //        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
 //        twitterStream.addListener(new StatusListener() {

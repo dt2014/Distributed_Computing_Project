@@ -10,8 +10,8 @@ var markers = [];
 $(function initialize() {
     var mapCanvas = document.getElementById('map-canvas');
     var mapOptions = {
-      center: new google.maps.LatLng(-27.5, 153.0166667),
-      zoom: 10,
+      center: new google.maps.LatLng(-27.4667, 153.0333),
+      zoom: 11,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     gMap = new google.maps.Map(mapCanvas, mapOptions);
@@ -45,7 +45,7 @@ function initSocket(){
 $(function() {
 	$("#datepicker").datepicker({
 		minDate: new Date(2015, 4 - 1, 21),
-		maxDate: 0,
+		maxDate: new Date(2015, 6 - 1, 1),
 		numberOfMonths: 2,
 		dateFormat: "yymmdd",
 		onSelect: function(dateText) { 

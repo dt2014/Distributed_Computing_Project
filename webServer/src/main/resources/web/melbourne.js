@@ -10,8 +10,8 @@ var markers = [];
 $(function initialize() {
     var mapCanvas = document.getElementById('map-canvas');
     var mapOptions = {
-      center: new google.maps.LatLng(-37.8166667, 144.9666667),
-      zoom: 10,
+      center: new google.maps.LatLng(-37.8136, 144.9631),
+      zoom: 11,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     gMap = new google.maps.Map(mapCanvas, mapOptions);
@@ -45,7 +45,7 @@ function initSocket(){
 $(function() {
 	$("#datepicker").datepicker({
 		minDate: new Date(2015, 4 - 1, 21),
-		maxDate: 0,
+		maxDate: new Date(2015, 6 - 1, 1),
 		numberOfMonths: 2,
 		dateFormat: "yymmdd",
 		onSelect: function(dateText) { 
@@ -60,28 +60,55 @@ function sendRequest(request) {
 	console.log(request);
 }
 
-$(window).scroll(function(){
-//	  $("#map-canvas").css({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"});
-	$("#map-canvas")
-    	.stop()
-    	.animate({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"}, "slow" );
-	});
+//$(window).scroll(function(){
+////	  $("#map-canvas").css({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"});
+//	$("#map-canvas")
+//    	.stop()
+//    	.animate({"margin-top": ($(window).scrollTop()) + "px", "margin-left":($(window).scrollLeft()) + "px"}, "slow" );
+//	});
 
 function markSpot(spot) {
-	var loc = new google.maps.LatLng(spot.lat, spot.lng);
+	var loc = new google.maps.LatLng(spot.lat, spot.lon);
+	
+	var spotIcon = {
+    	    path: google.maps.SymbolPath.CIRCLE,
+    	    fillColor: 'red',
+    	    fillOpacity: 0.9,
+    	    scale: 3,
+    	    strokeColor: 'green',
+    	    strokeWeight: 1
+    	}
+	if (spot.congestion) {
+		spotIcon = 'congestion_flag.png';
+	}
+	
+	var windowContent = "<p><b>Time: </b>"+ spot.time + "</p>" + 
+	"<p><b>Street Name: </b>"+ spot.road + "</p>" + 
+	"<p><b>User: </b>"+ spot.user + "</p>" + 
+	"<p><b>Text: </b>"+ spot.text + "</p>";
+	
+	var infowindow = new google.maps.InfoWindow({
+	      content: windowContent
+	  });
+	
+	var titleString = "Road tweet";
+	if (spot.congestion) {
+		titleString = "Possible congestion at " + spot.time;
+	}
+	
 	var options = {
             map: gMap,
 			position: loc,
-            icon: {
-            	    path: google.maps.SymbolPath.CIRCLE,
-            	    fillColor: 'red',
-            	    fillOpacity: 0.9,
-            	    scale: 3,
-            	    strokeColor: 'green',
-            	    strokeWeight: 1
-            	}
+            icon: spotIcon,
+            title: titleString
         }
+	
     var marker = new google.maps.Marker(options);
+
+	google.maps.event.addListener(marker, 'click', function() {
+	    infowindow.open(gMap, marker);
+	  });
+	
 	markers.push(marker);
 }
 

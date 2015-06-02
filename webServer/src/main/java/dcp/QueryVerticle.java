@@ -123,19 +123,14 @@ public class QueryVerticle extends Verticle {
 					            	JsonArray rows = returnedData.getArray("rows");
 					            	log.info("number of rows returned: " + rows.size());
 					            	for(int i = 0; i < rows.size(); ++i) {
-					            		JsonObject row = (JsonObject)rows.get(i);
-					            		String key = row.getString("key");
-//					            		if (key.equals(para)) {
-					            			JsonObject geo = row.getObject("value");
-					            			if (geo != null) {
-						            			JsonObject spot = new JsonObject();
-						    		        	spot.putNumber("lat", geo.getNumber("lat"));
-						    		        	spot.putNumber("lng", geo.getNumber("lon"));
-						    		        	eventBus.send(textHandlerID, spot.toString());
-						            		} else {
-							            		log.info("geo is null!");
-						            		}
-//					            		}
+					            		JsonObject row = (JsonObject) rows.get(i);
+//					            		String key = row.getString("key");
+					            		JsonObject spot = row.getObject("value");
+				            			if (spot != null) {
+					    		        	eventBus.send(textHandlerID, spot.toString());
+					            		} else {
+						            		log.info("spot is null!");
+					            		}
 					            	}
 					            }
 					        });
