@@ -13,7 +13,7 @@ There are four main components in this project:
 
 - A Tweet Harvester
 - Scripts for CouchDB Views
-- Congestion Tagging
+- Congestion Flag
 - Web Service
 
-There are individual README files in component folders. See there for the details to invoke the system.
+There are individual README files in component folders. See there for the details to find source code and invoke the system.

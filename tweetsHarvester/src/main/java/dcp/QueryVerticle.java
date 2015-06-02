@@ -1,7 +1,9 @@
 package dcp;
 
-/*
- * @author Fengmin Deng
+/**
+ * COMP90019 Distributed Computing Project, Semester 1 2015
+ * 
+ * @author Fengmin Deng (Student ID: 659332)
  */
 
 import org.vertx.java.core.Handler;
@@ -16,70 +18,84 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
+/**
+ * This verticle is for organizing and sending query requests for Twitter 
+ *  Search API. It sends each query based on the Geo information from Parse
+ *  Verticle and appends the harvesting information in the tweet record.
+ *  The search line could be either backwards or forwards by indicating either
+ * "next_results" or "refresh_url" for the URL type in the configuration file.
+ */
 public class QueryVerticle extends Verticle {
 
-	public void start() {
-		final Logger log = container.logger();
-		log.info("Query Verticle started.");
-		final JsonObject config = container.config();
-		final HttpClient client = vertx.createHttpClient()
-				.setPort(config.getInteger("twPort"))
-				.setHost(config.getString("twHost"))
-				.setSSL(true)
-				.setTrustAll(true)
-				.setTryUseCompression(true);
-		//The number of tweets to return per page
-		final int count = config.getInteger("count"); 
-		final EventBus evenBus = vertx.eventBus();
-		evenBus.registerHandler(Constants.QUEUE_QUERYINFO, new Handler<Message<JsonObject>>() {
-			@Override
-			public void handle(final Message<JsonObject> message) {
-				final JsonObject queryInfo = message.body();
-				// updateUrl is from either "refresh_url" or "next_results" in "search_metadata"
-		       	String updateUrl = queryInfo.getString(config.getString("urlType"));
-		    	if (updateUrl == null) { // for the first round of search or empty info from search_search
-		    		JsonObject geo = queryInfo.getObject("geo");
-		    		updateUrl = String.format("?q=&geocode=%f,%f,%fkm&count=%d", 
-		    			geo.getNumber("latitude"), geo.getNumber("longitude"), geo.getNumber("radius"), count);
-		    	}
-//	    		log.info(updateUrl);
-		    	HttpClientRequest request = client.request("GET", "/1.1/search/tweets.json" + updateUrl, new Handler<HttpClientResponse>() {
-					public void handle(HttpClientResponse resp) {
-						int status = resp.statusCode();
-						if (status == Constants.TW_STATUS_OK) {
-							resp.bodyHandler(new Handler<Buffer>() {
-					            public void handle(Buffer body) {
-					            	JsonObject returnedData = new JsonObject(body.toString("utf-8"));
-					            	String updateUrl = returnedData.getObject("search_metadata").getString(config.getString("urlType"));
-					            	message.reply(updateUrl);
-					            	JsonArray tweets = returnedData.getArray("statuses");
-					            	for(int i = 0; i < tweets.size(); ++i) {
-					            		JsonObject tweet = tweets.get(i);
-					            		tweet.putObject("harvester_appends", queryInfo);
-					            		evenBus.send(Constants.QUEUE_TWDATA, tweet);
-					            	}
-					            }
-					        });
-						} else {
-							JsonObject errMsg = new JsonObject();
-							errMsg.putObject(Constants.TW_QUERY_FAIL, queryInfo);
-							evenBus.send(Constants.QUEUE_LOG, errMsg);
-						}
-					}
-				}).exceptionHandler(new Handler<Throwable>() {
-					@Override
-					public void handle(Throwable t) {
-						JsonObject errMsg = new JsonObject();
-						errMsg.putString(Constants.TW_QUERY_FAIL, t.getMessage());
-						evenBus.send(Constants.QUEUE_LOG, errMsg);
-					}
-				});
-				request.headers().set("Content-Length", "0")
-								 .set("Authorization", config.getString("token"))
-								 .set("Accept-Encoding", "gzip")
-								 .set("Accept-Charset", "utf-8");
-				request.end();
-		    }
-		});
-	}
+    public void start() {
+        final Logger log = container.logger();
+        log.info("Query Verticle started.");
+        final JsonObject config = container.config();
+        final HttpClient client = vertx.createHttpClient()
+                .setPort(config.getInteger("twPort"))
+                .setHost(config.getString("twHost"))
+                .setSSL(true)
+                .setTrustAll(true)
+                .setTryUseCompression(true);
+        //The number of tweets to return per page
+        final int count = config.getInteger("count"); 
+        final EventBus evenBus = vertx.eventBus();
+        evenBus.registerHandler(Constants.QUEUE_QUERYINFO, new Handler<Message<JsonObject>>() {
+            @Override
+            public void handle(final Message<JsonObject> message) {
+                final JsonObject queryInfo = message.body();
+                // updateUrl is from either "refresh_url" or "next_results" in "search_metadata"
+                String updateUrl = queryInfo.getString(config.getString("urlType"));
+                // for the first round of search or empty info from search_search
+                if (updateUrl == null) { 
+                    JsonObject geo = queryInfo.getObject("geo");
+                    updateUrl = String.format("?q=&geocode=%f,%f,%fkm&count=%d", 
+                        geo.getNumber("latitude"), 
+                        geo.getNumber("longitude"), geo.getNumber("radius"), count);
+                }
+//              log.info(updateUrl);
+                HttpClientRequest request = client.request("GET", 
+                        "/1.1/search/tweets.json" + updateUrl, 
+                        new Handler<HttpClientResponse>() {
+                    public void handle(HttpClientResponse resp) {
+                        int status = resp.statusCode();
+                        if (status == Constants.TW_STATUS_OK) {
+                            resp.bodyHandler(new Handler<Buffer>() {
+                                public void handle(Buffer body) {
+                                    JsonObject returnedData = 
+                                            new JsonObject(body.toString("utf-8"));
+                                    String updateUrl = 
+                                            returnedData.getObject("search_metadata").
+                                            getString(config.getString("urlType"));
+                                    message.reply(updateUrl);
+                                    JsonArray tweets = returnedData.getArray("statuses");
+                                    for(int i = 0; i < tweets.size(); ++i) {
+                                        JsonObject tweet = tweets.get(i);
+                                        tweet.putObject("harvester_appends", queryInfo);
+                                        evenBus.send(Constants.QUEUE_TWDATA, tweet);
+                                    }
+                                }
+                            });
+                        } else {
+                            JsonObject errMsg = new JsonObject();
+                            errMsg.putObject(Constants.TW_QUERY_FAIL, queryInfo);
+                            evenBus.send(Constants.QUEUE_LOG, errMsg);
+                        }
+                    }
+                }).exceptionHandler(new Handler<Throwable>() {
+                    @Override
+                    public void handle(Throwable t) {
+                        JsonObject errMsg = new JsonObject();
+                        errMsg.putString(Constants.TW_QUERY_FAIL, t.getMessage());
+                        evenBus.send(Constants.QUEUE_LOG, errMsg);
+                    }
+                });
+                request.headers().set("Content-Length", "0")
+                                 .set("Authorization", config.getString("token"))
+                                 .set("Accept-Encoding", "gzip")
+                                 .set("Accept-Charset", "utf-8");
+                request.end();
+            }
+        });
+    }
 }

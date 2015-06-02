@@ -5,148 +5,217 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Distributed Computing Project</title>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link href="justified-nav.css" rel="stylesheet">
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="brisbane.js"></script>
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="masthead">
-			<nav>
-				<ul class="nav nav-justified">
-					<li><a href="index.html">Introduction</a></li>
-					<li class="active"><a href="brisbane.html">Brisbane</a></li>
-					<li><a href="melbourne.html">Melbourne</a></li>
-					<li><a href="sydney.html">Sydney</a></li>
-					<li><a href="realtime.html">Real Time</a></li>
-				</ul>
-			</nav>
-		</div>
-		<div class="main">
-			<h3 class="lead text-primary" style="padding-left: 10px">Main
-				Roads Tweets Mapping in Brisbane</h3>
-			<div class="col-md-8">
-				<div id="map-canvas" style="width: 100%; height: 600px"></div>
-			</div>
-			<div class="col-md-4">
-				<!-- <h4 id="feedback" style="padding-left: 10px">
-				<span>You've selected:</span> <span id="select-result">none</span>.
-				</h4> -->
-				<div class="panel-group" style="padding-left: 10px;" id="accordion">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-date">Select a date (From 21 April 2015 To 1 June 2015)</a>
-							</h4>
-						</div>
-						<div id="collapse-date" class="panel-collapse collapse">
-							<div id="datepicker"></div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-time">Select a time period</a>
-							</h4>
-						</div>
-						<div id="collapse-time" class="panel-collapse collapse">
-							<ul class="list-group">
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-time-mr')"><span class="badge"
-										id="mr_qty">359</span> Morning Rush</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-time-er')"><span class="badge"
-										id="er_qty">554</span> Evening Rush</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-time-op')"><span class="badge"
-										id="op_qty">2533</span> Off Peak</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-day">Select a day of week</a>
-							</h4>
-						</div>
-						<div id="collapse-day" class="panel-collapse collapse">
-							<ul class="list-group">
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-mon')"><span class="badge"
-										id="mon_qty">517</span> Monday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-tue')"><span class="badge"
-										id="tue_qty">313</span> Tuesday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-wed')"><span class="badge"
-										id="wed_qty">490</span> Wednesday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-thu')"><span class="badge"
-										id="thu_qty">506</span> Thursday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-fri')"><span class="badge"
-										id="fri_qty">543</span> Friday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-sat')"><span class="badge"
-										id="sat_qty">637</span> Saturday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('bmrh-day-sun')"><span class="badge"
-										id="sun_qty">440</span> Sunday</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-road">Select a street (With harvested records over 10)</a>
-							</h4>
-						</div>
-						<div id="collapse-road" class="panel-collapse collapse">
-							<ul class="list-group">
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-airport_link_on_ramp')"><span class="badge" id="airport_link_on_ramp_qty">19</span>AIRPORT LINK ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-boundary_street')"><span class="badge" id="boundary_street_qty">18</span>BOUNDARY STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-bradfield_highway_on_ramp')"><span class="badge" id="bradfield_highway_on_ramp_qty">125</span>BRADFIELD HIGHWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-campbell_street_off_ramp')"><span class="badge" id="campbell_street_off_ramp_qty">37</span>CAMPBELL STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-college_road_off_ramp')"><span class="badge" id="college_road_off_ramp_qty">19</span>COLLEGE ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-east_west_arterial_road_off_ramp')"><span class="badge" id="east_west_arterial_road_off_ramp_qty">13</span>EAST WEST ARTERIAL ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-elizabeth_street_off_ramp')"><span class="badge" id="elizabeth_street_off_ramp_qty">49</span>ELIZABETH STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-gateway_motorway_on_ramp')"><span class="badge" id="gateway_motorway_on_ramp_qty">31</span>GATEWAY MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-gympie_arterial_road_on_ramp')"><span class="badge" id="gympie_arterial_road_on_ramp_qty">15</span>GYMPIE ARTERIAL ROAD ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-hale_street_on_ramp')"><span class="badge" id="hale_street_on_ramp_qty">44</span>HALE STREET ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-herschel_street_off_ramp')"><span class="badge" id="herschel_street_off_ramp_qty">12</span>HERSCHEL STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-logan_motorway_on_ramp')"><span class="badge" id="logan_motorway_on_ramp_qty">33</span>LOGAN MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-makerston_street_emergency_vehicle_ramp')"><span class="badge" id="makerston_street_emergency_vehicle_ramp_qty">15</span>MAKERSTON STREET EMERGENCY VEHICLE RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-margaret_street_off_ramp')"><span class="badge" id="margaret_street_off_ramp_qty">17</span>MARGARET STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-minjungbal_drive')"><span class="badge" id="minjungbal_drive_qty">20</span>MINJUNGBAL DRIVE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway')"><span class="badge" id="pacific_motorway_qty">20</span>PACIFIC MOTORWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway_on_ramp')"><span class="badge" id="pacific_motorway_on_ramp_qty">416</span>PACIFIC MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-roundabout')"><span class="badge" id="roundabout_qty">2129</span>ROUNDABOUT</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-strathpine_road_off_ramp')"><span class="badge" id="strathpine_road_off_ramp_qty">12</span>STRATHPINE ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-sunshine_motorway_on_ramp')"><span class="badge" id="sunshine_motorway_on_ramp_qty">62</span>SUNSHINE MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-turbot_street_off_ramp')"><span class="badge" id="turbot_street_off_ramp_qty">49</span>TURBOT STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wharf_street')"><span class="badge" id="wharf_street_qty">24</span>WHARF STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wynnum_road_off_ramp')"><span class="badge" id="wynnum_road_off_ramp_qty">12</span>WYNNUM ROAD OFF RAMP</a></li>
+    <div class="container-fluid">
+        <div class="masthead">
+            <nav>
+                <ul class="nav nav-justified">
+                    <li><a href="index.html">Introduction</a></li>
+                    <li class="active"><a href="brisbane.html">Brisbane</a></li>
+                    <li><a href="melbourne.html">Melbourne</a></li>
+                    <li><a href="sydney.html">Sydney</a></li>
+                    <li><a href="realtime.html">Real Time</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main">
+            <h3 class="lead text-primary" style="padding-left: 10px">Main
+                Roads Tweets Mapping in Brisbane</h3>
+            <div class="col-md-8">
+                <div id="map-canvas" style="width: 100%; height: 600px"></div>
+            </div>
+            <div class="col-md-4">
+                <!-- <h4 id="feedback" style="padding-left: 10px">
+                <span>You've selected:</span> <span id="select-result">none</span>.
+                </h4> -->
+                <div class="panel-group" style="padding-left: 10px;" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-date">Select a date (From 21 April 2015 To
+                                    1 June 2015)</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-date" class="panel-collapse collapse">
+                            <div id="datepicker"></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-time">Select a time period</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-time" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-time-mr')"><span class="badge"
+                                        id="mr_qty">359</span> Morning Rush</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-time-er')"><span class="badge"
+                                        id="er_qty">554</span> Evening Rush</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-time-op')"><span class="badge"
+                                        id="op_qty">2533</span> Off Peak</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-day">Select a day of week</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-day" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-mon')"><span class="badge"
+                                        id="mon_qty">517</span> Monday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-tue')"><span class="badge"
+                                        id="tue_qty">313</span> Tuesday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-wed')"><span class="badge"
+                                        id="wed_qty">490</span> Wednesday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-thu')"><span class="badge"
+                                        id="thu_qty">506</span> Thursday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-fri')"><span class="badge"
+                                        id="fri_qty">543</span> Friday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-sat')"><span class="badge"
+                                        id="sat_qty">637</span> Saturday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-day-sun')"><span class="badge"
+                                        id="sun_qty">440</span> Sunday</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-road">Select a street (With harvested
+                                    records over 10)</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-road" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-airport_link_on_ramp')"><span
+                                        class="badge" id="airport_link_on_ramp_qty">19</span>AIRPORT
+                                        LINK ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-boundary_street')"><span
+                                        class="badge" id="boundary_street_qty">18</span>BOUNDARY
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-bradfield_highway_on_ramp')"><span
+                                        class="badge" id="bradfield_highway_on_ramp_qty">125</span>BRADFIELD
+                                        HIGHWAY ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-campbell_street_off_ramp')"><span
+                                        class="badge" id="campbell_street_off_ramp_qty">37</span>CAMPBELL
+                                        STREET OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-college_road_off_ramp')"><span
+                                        class="badge" id="college_road_off_ramp_qty">19</span>COLLEGE
+                                        ROAD OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-east_west_arterial_road_off_ramp')"><span
+                                        class="badge" id="east_west_arterial_road_off_ramp_qty">13</span>EAST
+                                        WEST ARTERIAL ROAD OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-elizabeth_street_off_ramp')"><span
+                                        class="badge" id="elizabeth_street_off_ramp_qty">49</span>ELIZABETH
+                                        STREET OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-gateway_motorway_on_ramp')"><span
+                                        class="badge" id="gateway_motorway_on_ramp_qty">31</span>GATEWAY
+                                        MOTORWAY ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-gympie_arterial_road_on_ramp')"><span
+                                        class="badge" id="gympie_arterial_road_on_ramp_qty">15</span>GYMPIE
+                                        ARTERIAL ROAD ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-hale_street_on_ramp')"><span
+                                        class="badge" id="hale_street_on_ramp_qty">44</span>HALE
+                                        STREET ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-herschel_street_off_ramp')"><span
+                                        class="badge" id="herschel_street_off_ramp_qty">12</span>HERSCHEL
+                                        STREET OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-logan_motorway_on_ramp')"><span
+                                        class="badge" id="logan_motorway_on_ramp_qty">33</span>LOGAN
+                                        MOTORWAY ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-makerston_street_emergency_vehicle_ramp')"><span
+                                        class="badge" id="makerston_street_emergency_vehicle_ramp_qty">15</span>MAKERSTON
+                                        STREET EMERGENCY VEHICLE RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-margaret_street_off_ramp')"><span
+                                        class="badge" id="margaret_street_off_ramp_qty">17</span>MARGARET
+                                        STREET OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-minjungbal_drive')"><span
+                                        class="badge" id="minjungbal_drive_qty">20</span>MINJUNGBAL
+                                        DRIVE</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-pacific_motorway')"><span
+                                        class="badge" id="pacific_motorway_qty">20</span>PACIFIC
+                                        MOTORWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-pacific_motorway_on_ramp')"><span
+                                        class="badge" id="pacific_motorway_on_ramp_qty">416</span>PACIFIC
+                                        MOTORWAY ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-roundabout')"><span
+                                        class="badge" id="roundabout_qty">2129</span>ROUNDABOUT</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-strathpine_road_off_ramp')"><span
+                                        class="badge" id="strathpine_road_off_ramp_qty">12</span>STRATHPINE
+                                        ROAD OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-sunshine_motorway_on_ramp')"><span
+                                        class="badge" id="sunshine_motorway_on_ramp_qty">62</span>SUNSHINE
+                                        MOTORWAY ON RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-turbot_street_off_ramp')"><span
+                                        class="badge" id="turbot_street_off_ramp_qty">49</span>TURBOT
+                                        STREET OFF RAMP</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-wharf_street')"><span
+                                        class="badge" id="wharf_street_qty">24</span>WHARF STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('bmrh-road-wynnum_road_off_ramp')"><span
+                                        class="badge" id="wynnum_road_off_ramp_qty">12</span>WYNNUM
+                                        ROAD OFF RAMP</a></li>
 
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

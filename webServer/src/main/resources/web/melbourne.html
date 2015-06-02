@@ -5,171 +5,287 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Distributed Computing Project</title>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link href="justified-nav.css" rel="stylesheet">
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="melbourne.js"></script>
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="masthead">
-			<nav>
-				<ul class="nav nav-justified">
-					<li><a href="index.html">Introduction</a></li>
-					<li><a href="brisbane.html">Brisbane</a></li>
-					<li class="active"><a href="melbourne.html">Melbourne</a></li>
-					<li><a href="sydney.html">Sydney</a></li>
-					<li><a href="realtime.html">Real Time</a></li>
-				</ul>
-			</nav>
-		</div>
-		<div class="main">
-			<h3 class="lead text-primary" style="padding-left: 10px">Main
-				Roads Tweets Mapping in Melbourne</h3>
-			<div class="col-md-8">
-				<div id="map-canvas" style="width: 100%; height: 600px"></div>
-			</div>
-			<div class="col-md-4">
-				<!-- <h4 id="feedback" style="padding-left: 10px">
-				<span>You've selected:</span> <span id="select-result">none</span>.
-				</h4> -->
-				<div class="panel-group" style="padding-left: 10px;" id="accordion">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-date">Select a date (From 21 April 2015 To 1 June 2015)</a>
-							</h4>
-						</div>
-						<div id="collapse-date" class="panel-collapse collapse">
-							<div id="datepicker"></div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-time">Select a time period</a>
-							</h4>
-						</div>
-						<div id="collapse-time" class="panel-collapse collapse">
-							<ul class="list-group">
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-time-mr')"><span class="badge"
-										id="mr_qty">1813</span> Morning Rush</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-time-er')"><span class="badge"
-										id="er_qty">3321</span> Evening Rush</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-time-op')"><span class="badge"
-										id="op_qty">14602</span> Off Peak</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-day">Select a day of week</a>
-							</h4>
-						</div>
-						<div id="collapse-day" class="panel-collapse collapse">
-							<ul class="list-group">
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-mon')"><span class="badge"
-										id="mon_qty">2376</span> Monday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-tue')"><span class="badge"
-										id="tue_qty">1926</span> Tuesday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-wed')"><span class="badge"
-										id="wed_qty">2622</span> Wednesday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-thu')"><span class="badge"
-										id="thu_qty">3288</span> Thursday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-fri')"><span class="badge"
-										id="fri_qty">3165</span> Friday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-sat')"><span class="badge"
-										id="sat_qty">3256</span> Saturday</a></li>
-								<li><a class="list-group-item"
-									onclick="sendRequest('mmrh-day-sun')"><span class="badge"
-										id="sun_qty">3103</span> Sunday</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-road">Select a street (With harvested records over 100)</a>
-							</h4>
-						</div>
-						<div id="collapse-road" class="panel-collapse collapse">
-							<ul class="list-group">
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-albert_street')"><span class="badge" id="albert_street_qty">129</span>ALBERT STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-alexandra_parade')"><span class="badge" id="alexandra_parade_qty">109</span>ALEXANDRA PARADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-bay_street')"><span class="badge" id="bay_street_qty">112</span>BAY STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-beaconsfield_parade')"><span class="badge" id="beaconsfield_parade_qty">471</span>BEACONSFIELD PARADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-bell_street')"><span class="badge" id="bell_street_qty">103</span>BELL STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-burnley_tunnel')"><span class="badge" id="burnley_tunnel_qty">276</span>BURNLEY TUNNEL</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-burwood_highway')"><span class="badge" id="burwood_highway_qty">246</span>BURWOOD HIGHWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-canterbury_road')"><span class="badge" id="canterbury_road_qty">118</span>CANTERBURY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-cecil_street')"><span class="badge" id="cecil_street_qty">131</span>CECIL STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-city_road')"><span class="badge" id="city_road_qty">346</span>CITY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-citylink')"><span class="badge" id="citylink_qty">193</span>CITYLINK</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-dandenong_road')"><span class="badge" id="dandenong_road_qty">549</span>DANDENONG ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-drummond_street')"><span class="badge" id="drummond_street_qty">161</span>DRUMMOND STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-elgin_street')"><span class="badge" id="elgin_street_qty">216</span>ELGIN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-exhibition_street')"><span class="badge" id="exhibition_street_qty">524</span>EXHIBITION STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-ferntree_gully_road')"><span class="badge" id="ferntree_gully_road_qty">131</span>FERNTREE GULLY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-flemington_road')"><span class="badge" id="flemington_road_qty">120</span>FLEMINGTON ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-franklin_street')"><span class="badge" id="franklin_street_qty">202</span>FRANKLIN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-harbour_esplanade')"><span class="badge" id="harbour_esplanade_qty">148</span>HARBOUR ESPLANADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-hoddle_street')"><span class="badge" id="hoddle_street_qty">140</span>HODDLE STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-jacka_boulevard')"><span class="badge" id="jacka_boulevard_qty">280</span>JACKA BOULEVARD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-king_street')"><span class="badge" id="king_street_qty">485</span>KING STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-kings_way')"><span class="badge" id="kings_way_qty">579</span>KINGS WAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-lonsdale_street')"><span class="badge" id="lonsdale_street_qty">740</span>LONSDALE STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-lygon_street')"><span class="badge" id="lygon_street_qty">298</span>LYGON STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-napier_street')"><span class="badge" id="napier_street_qty">384</span>NAPIER STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-nepean_highway')"><span class="badge" id="nepean_highway_qty">137</span>NEPEAN HIGHWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-nicholson_street')"><span class="badge" id="nicholson_street_qty">340</span>NICHOLSON STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-plenty_road')"><span class="badge" id="plenty_road_qty">140</span>PLENTY ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-power_street')"><span class="badge" id="power_street_qty">183</span>POWER STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-princes_highway')"><span class="badge" id="princes_highway_qty">135</span>PRINCES HIGHWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-punt_road')"><span class="badge" id="punt_road_qty">186</span>PUNT ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-queen_street')"><span class="badge" id="queen_street_qty">600</span>QUEEN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-queens_road')"><span class="badge" id="queens_road_qty">262</span>QUEENS ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-rathdowne_street')"><span class="badge" id="rathdowne_street_qty">241</span>RATHDOWNE STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-russell_street')"><span class="badge" id="russell_street_qty">850</span>RUSSELL STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-southbank_boulevard')"><span class="badge" id="southbank_boulevard_qty">115</span>SOUTHBANK BOULEVARD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-springvale_road')"><span class="badge" id="springvale_road_qty">139</span>SPRINGVALE ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-st_kilda_road')"><span class="badge" id="st_kilda_road_qty">693</span>ST KILDA ROAD</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-tullamarine_freeway')"><span class="badge" id="tullamarine_freeway_qty">119</span>TULLAMARINE FREEWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-victoria_parade')"><span class="badge" id="victoria_parade_qty">173</span>VICTORIA PARADE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-victoria_street')"><span class="badge" id="victoria_street_qty">130</span>VICTORIA STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-west_gate_freeway')"><span class="badge" id="west_gate_freeway_qty">130</span>WEST GATE FREEWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-whiteman_street')"><span class="badge" id="whiteman_street_qty">318</span>WHITEMAN STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-wright_street')"><span class="badge" id="wright_street_qty">203</span>WRIGHT STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('mmrh-road-wurundjeri_way')"><span class="badge" id="wurundjeri_way_qty">184</span>WURUNDJERI WAY</a></li>
+    <div class="container-fluid">
+        <div class="masthead">
+            <nav>
+                <ul class="nav nav-justified">
+                    <li><a href="index.html">Introduction</a></li>
+                    <li><a href="brisbane.html">Brisbane</a></li>
+                    <li class="active"><a href="melbourne.html">Melbourne</a></li>
+                    <li><a href="sydney.html">Sydney</a></li>
+                    <li><a href="realtime.html">Real Time</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main">
+            <h3 class="lead text-primary" style="padding-left: 10px">Main
+                Roads Tweets Mapping in Melbourne</h3>
+            <div class="col-md-8">
+                <div id="map-canvas" style="width: 100%; height: 600px"></div>
+            </div>
+            <div class="col-md-4">
+                <!-- <h4 id="feedback" style="padding-left: 10px">
+                <span>You've selected:</span> <span id="select-result">none</span>.
+                </h4> -->
+                <div class="panel-group" style="padding-left: 10px;" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-date">Select a date (From 21 April 2015 To
+                                    1 June 2015)</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-date" class="panel-collapse collapse">
+                            <div id="datepicker"></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-time">Select a time period</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-time" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-time-mr')"><span class="badge"
+                                        id="mr_qty">1813</span> Morning Rush</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-time-er')"><span class="badge"
+                                        id="er_qty">3321</span> Evening Rush</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-time-op')"><span class="badge"
+                                        id="op_qty">14602</span> Off Peak</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-day">Select a day of week</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-day" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-mon')"><span class="badge"
+                                        id="mon_qty">2376</span> Monday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-tue')"><span class="badge"
+                                        id="tue_qty">1926</span> Tuesday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-wed')"><span class="badge"
+                                        id="wed_qty">2622</span> Wednesday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-thu')"><span class="badge"
+                                        id="thu_qty">3288</span> Thursday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-fri')"><span class="badge"
+                                        id="fri_qty">3165</span> Friday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-sat')"><span class="badge"
+                                        id="sat_qty">3256</span> Saturday</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-day-sun')"><span class="badge"
+                                        id="sun_qty">3103</span> Sunday</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse-road">Select a street (With harvested
+                                    records over 100)</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-road" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-albert_street')"><span
+                                        class="badge" id="albert_street_qty">129</span>ALBERT STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-alexandra_parade')"><span
+                                        class="badge" id="alexandra_parade_qty">109</span>ALEXANDRA
+                                        PARADE</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-bay_street')"><span
+                                        class="badge" id="bay_street_qty">112</span>BAY STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-beaconsfield_parade')"><span
+                                        class="badge" id="beaconsfield_parade_qty">471</span>BEACONSFIELD
+                                        PARADE</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-bell_street')"><span
+                                        class="badge" id="bell_street_qty">103</span>BELL STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-burnley_tunnel')"><span
+                                        class="badge" id="burnley_tunnel_qty">276</span>BURNLEY TUNNEL</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-burwood_highway')"><span
+                                        class="badge" id="burwood_highway_qty">246</span>BURWOOD
+                                        HIGHWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-canterbury_road')"><span
+                                        class="badge" id="canterbury_road_qty">118</span>CANTERBURY
+                                        ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-cecil_street')"><span
+                                        class="badge" id="cecil_street_qty">131</span>CECIL STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-city_road')"><span
+                                        class="badge" id="city_road_qty">346</span>CITY ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-citylink')"><span
+                                        class="badge" id="citylink_qty">193</span>CITYLINK</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-dandenong_road')"><span
+                                        class="badge" id="dandenong_road_qty">549</span>DANDENONG ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-drummond_street')"><span
+                                        class="badge" id="drummond_street_qty">161</span>DRUMMOND
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-elgin_street')"><span
+                                        class="badge" id="elgin_street_qty">216</span>ELGIN STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-exhibition_street')"><span
+                                        class="badge" id="exhibition_street_qty">524</span>EXHIBITION
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-ferntree_gully_road')"><span
+                                        class="badge" id="ferntree_gully_road_qty">131</span>FERNTREE
+                                        GULLY ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-flemington_road')"><span
+                                        class="badge" id="flemington_road_qty">120</span>FLEMINGTON
+                                        ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-franklin_street')"><span
+                                        class="badge" id="franklin_street_qty">202</span>FRANKLIN
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-harbour_esplanade')"><span
+                                        class="badge" id="harbour_esplanade_qty">148</span>HARBOUR
+                                        ESPLANADE</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-hoddle_street')"><span
+                                        class="badge" id="hoddle_street_qty">140</span>HODDLE STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-jacka_boulevard')"><span
+                                        class="badge" id="jacka_boulevard_qty">280</span>JACKA
+                                        BOULEVARD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-king_street')"><span
+                                        class="badge" id="king_street_qty">485</span>KING STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-kings_way')"><span
+                                        class="badge" id="kings_way_qty">579</span>KINGS WAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-lonsdale_street')"><span
+                                        class="badge" id="lonsdale_street_qty">740</span>LONSDALE
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-lygon_street')"><span
+                                        class="badge" id="lygon_street_qty">298</span>LYGON STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-napier_street')"><span
+                                        class="badge" id="napier_street_qty">384</span>NAPIER STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-nepean_highway')"><span
+                                        class="badge" id="nepean_highway_qty">137</span>NEPEAN HIGHWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-nicholson_street')"><span
+                                        class="badge" id="nicholson_street_qty">340</span>NICHOLSON
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-plenty_road')"><span
+                                        class="badge" id="plenty_road_qty">140</span>PLENTY ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-power_street')"><span
+                                        class="badge" id="power_street_qty">183</span>POWER STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-princes_highway')"><span
+                                        class="badge" id="princes_highway_qty">135</span>PRINCES
+                                        HIGHWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-punt_road')"><span
+                                        class="badge" id="punt_road_qty">186</span>PUNT ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-queen_street')"><span
+                                        class="badge" id="queen_street_qty">600</span>QUEEN STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-queens_road')"><span
+                                        class="badge" id="queens_road_qty">262</span>QUEENS ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-rathdowne_street')"><span
+                                        class="badge" id="rathdowne_street_qty">241</span>RATHDOWNE
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-russell_street')"><span
+                                        class="badge" id="russell_street_qty">850</span>RUSSELL STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-southbank_boulevard')"><span
+                                        class="badge" id="southbank_boulevard_qty">115</span>SOUTHBANK
+                                        BOULEVARD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-springvale_road')"><span
+                                        class="badge" id="springvale_road_qty">139</span>SPRINGVALE
+                                        ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-st_kilda_road')"><span
+                                        class="badge" id="st_kilda_road_qty">693</span>ST KILDA ROAD</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-tullamarine_freeway')"><span
+                                        class="badge" id="tullamarine_freeway_qty">119</span>TULLAMARINE
+                                        FREEWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-victoria_parade')"><span
+                                        class="badge" id="victoria_parade_qty">173</span>VICTORIA
+                                        PARADE</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-victoria_street')"><span
+                                        class="badge" id="victoria_street_qty">130</span>VICTORIA
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-west_gate_freeway')"><span
+                                        class="badge" id="west_gate_freeway_qty">130</span>WEST GATE
+                                        FREEWAY</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-whiteman_street')"><span
+                                        class="badge" id="whiteman_street_qty">318</span>WHITEMAN
+                                        STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-wright_street')"><span
+                                        class="badge" id="wright_street_qty">203</span>WRIGHT STREET</a></li>
+                                <li><a class="list-group-item"
+                                    onclick="sendRequest('mmrh-road-wurundjeri_way')"><span
+                                        class="badge" id="wurundjeri_way_qty">184</span>WURUNDJERI WAY</a></li>
 
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

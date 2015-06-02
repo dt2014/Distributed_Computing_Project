@@ -1,5 +1,6 @@
 /**
  * COMP90019 Distributed Computing Project, Semester 1 2015
+ 
  * Modified By: Fengmin Deng (Student ID: 659332)
  * 
  * This class defines a customized distance function for ELKI platform.
@@ -36,15 +37,6 @@ import de.lmu.ifi.dbs.elki.data.type.SimpleTypeInformation;
 import de.lmu.ifi.dbs.elki.data.type.TypeUtil;
 import de.lmu.ifi.dbs.elki.distance.distancefunction.AbstractNumberVectorDistanceFunction;
 
-/**
- * Tutorial example for ELKI.
- * 
- * See <a
- * href="http://elki.dbs.ifi.lmu.de/wiki/Tutorial/DistanceFunctions">Distance
- * function tutorial</a>
- * 
- * @author Erich Schubert
- */
 public class MyDistanceFunction extends AbstractNumberVectorDistanceFunction {
   @Override
   public double distance(NumberVector o1, NumberVector o2) {

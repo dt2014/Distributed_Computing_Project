@@ -14,6 +14,22 @@ ELKI is the frame work used for clustering tweet records. ELKI has strongly advi
 
 There is a customized distance function defined for the purpose of spatio-temporal clustering in this project. The source code is defined in file [MyDistanceFunction.java](MyDistanceFunction.java), it was already pre-compiled and embeded in the ELKI jar [elki-bundle-0.6.5-customized.jar](elki-bundle-0.6.5-customized.jar).
 
+##Souce Code
+The source code for the mentioned 1 & 3 parts are in folder: `Distributed_Computing_Project/congestionTag/src/main/java/dcp/congestionTag/`.
+
+The scripts for part 2 and the Java code of customized distance function are saved under root folder of this sub-project: `Distributed_Computing_Project/congestionTag/`. 
+
+These files in the root folder are generated files from part 1 & 2, they are just kept for the record:
+
+- `brisbane_in.txt`
+- `melbourne_in.txt`
+- `sydney_in.txt`
+- `brisbane_clusters.txt`
+- `melbourne_clusters.txt`
+- `sydney_clusters.txt`
+
+Finally the jar file `elki-bundle-0.6.5-customized.jar` is the main application for part 2. It embededed the compiled distance function already. Without it the scripts could not execute. It is not pushed to GitHub but it would be included in the code submission.
+
 ##Enviroment Requirements
 For installing and launching the applications, these tools/environments are needed:
 
