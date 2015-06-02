@@ -62,54 +62,57 @@ public class RealTimeClients extends Verticle {
 				{144.593741856, -38.433859306}, {145.512528832, -37.5112737225},// Melbourne
 				{150.520928608, -34.1183470085}, {151.343020992, -33.578140996}}; // Sydney
 		
-//		ConfigurationBuilder cb = new ConfigurationBuilder();
-//        cb.setDebugEnabled(true);
-//        cb.setJSONStoreEnabled(true);
-//        cb.setOAuthConsumerKey(OAuthConsumerKey);
-//        cb.setOAuthConsumerSecret(OAuthConsumerSecret);
-//        cb.setOAuthAccessToken(OAuthAccessToken);
-//        cb.setOAuthAccessTokenSecret(OAuthAccessTokenSecret);
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true);
+        cb.setJSONStoreEnabled(true);
+        cb.setOAuthConsumerKey(OAuthConsumerKey);
+        cb.setOAuthConsumerSecret(OAuthConsumerSecret);
+        cb.setOAuthAccessToken(OAuthAccessToken);
+        cb.setOAuthAccessTokenSecret(OAuthAccessTokenSecret);
 
-//        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
-//        twitterStream.addListener(new StatusListener() {
-//			@Override
-//			public void onException(Exception ex) {
-//				log.error(ex.toString());
-//			}
-//			@Override
-//			public void onStatus(Status status) {
-//				String rawJSON = TwitterObjectFactory.getRawJSON(status);
-//				JsonObject tweet = new JsonObject(rawJSON);
-////				log.info("tweet: " + tweet);
-//				JsonObject data = validateTweet(tweet); // discard the tweets with no coordinates
+        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+        twitterStream.addListener(new StatusListener() {
+			@Override
+			public void onException(Exception ex) {
+				log.error(ex.toString());
+			}
+			@Override
+			public void onStatus(Status status) {
+				String rawJSON = TwitterObjectFactory.getRawJSON(status);
+				String createdTime = status.getCreatedAt().toString();
+				JsonObject tweet = new JsonObject(rawJSON);
+				JsonObject data = validateTweet(tweet); // discard the tweets with no coordinates
 //				log.info("data: " + data.toString());
-//				if (data.getBoolean("valid") && (!clients.isEmpty())) {
-//					for (String client : clients) {
-//			        	eventBus.send(client, data.toString());
-//			        }
-//				}
-//			}
-//			@Override
-//			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-//				log.info("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
-//			}
-//			@Override
-//			public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-//				log.info("Got track limitation notice:" + numberOfLimitedStatuses);
-//				
-//			}
-//			@Override
-//			public void onScrubGeo(long userId, long upToStatusId) {
-//				log.info("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
-//			}
-//			@Override
-//			public void onStallWarning(StallWarning warning) {
-//				log.info("Got Stall Warning:" + warning.getMessage());
-//			}
-//        });
-//        FilterQuery filterQuery = new FilterQuery();
-//        filterQuery.locations(boundingBox);
-//        twitterStream.filter(filterQuery);
+				if (data.getBoolean("valid") && (!clients.isEmpty())) {
+					data.putString("time", createdTime.toString());
+					data.putString("user", tweet.getObject("user").getString("screen_name"));
+					data.putString("text", tweet.getString("text"));
+					for (String client : clients) {
+			        	eventBus.send(client, data.toString());
+			        }
+				}
+			}
+			@Override
+			public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+				log.info("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+			}
+			@Override
+			public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+				log.info("Got track limitation notice:" + numberOfLimitedStatuses);
+				
+			}
+			@Override
+			public void onScrubGeo(long userId, long upToStatusId) {
+				log.info("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+			}
+			@Override
+			public void onStallWarning(StallWarning warning) {
+				log.info("Got Stall Warning:" + warning.getMessage());
+			}
+        });
+        FilterQuery filterQuery = new FilterQuery();
+        filterQuery.locations(boundingBox);
+        twitterStream.filter(filterQuery);
 	}
 	
 	private static JsonObject validateTweet(JsonObject tweet) {
@@ -127,7 +130,7 @@ public class RealTimeClients extends Verticle {
 						lat = coordinates[0];
 						lon = coordinates[1];
 						message.putNumber("lat", lat);
-						message.putNumber("lng", lon);
+						message.putNumber("lon", lon);
 						message.putBoolean("valid", true);
 //						System.out.println("line 130: "+message.getBoolean("valid"));
 					} else if (tweet.getObject("coordinates") != null) {
@@ -135,7 +138,7 @@ public class RealTimeClients extends Verticle {
 						lat = coordinates[1];
 						lon = coordinates[0];
 						message.putNumber("lat", lat);
-						message.putNumber("lng", lon);
+						message.putNumber("lon", lon);
 						message.putBoolean("valid", true);
 //						System.out.println("line 138: "+message.getBinary("valid"));
 					} else {

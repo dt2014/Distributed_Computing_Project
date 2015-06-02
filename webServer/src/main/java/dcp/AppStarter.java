@@ -24,10 +24,10 @@ public class AppStarter extends Verticle {
 		JsonObject config = container.config();
 		final JsonObject webServerConfig = config.getObject("webServerConfig");
 		final JsonObject webSocketConfig = config.getObject("webSocketConfig");
-		final JsonObject queryConfig = config.getObject("queryConfig");
+		final JsonObject queryConfig = config.getObject("queryConfig"); 
 		final JsonObject realTimeClientsConfig = config.getObject("realTimeClientsConfig");
 		
-		container.deployVerticle(RealTimeClients.class.getCanonicalName(), realTimeClientsConfig, 1, new AsyncResultHandler<String>() {
+		container.deployVerticle(QueryVerticle.class.getCanonicalName(), queryConfig, 1, new AsyncResultHandler<String>() {
 		    public void handle(AsyncResult<String> asyncResult) {
 		        if (asyncResult.succeeded()) {
 		        	container.deployVerticle(WebSocketOnServer.class.getCanonicalName(), webSocketConfig, 1, new AsyncResultHandler<String>() {
@@ -36,7 +36,7 @@ public class AppStarter extends Verticle {
 		    		        	container.deployVerticle(WebServer.class.getCanonicalName(), webServerConfig, 1, new AsyncResultHandler<String>() {
 		    		    		    public void handle(AsyncResult<String> asyncResult) {
 		    		    		        if (asyncResult.succeeded()) {
-		    		    		        	container.deployVerticle(QueryVerticle.class.getCanonicalName(), queryConfig, 1, new AsyncResultHandler<String>() {
+		    		    		        	container.deployVerticle(RealTimeClients.class.getCanonicalName(), realTimeClientsConfig, 1, new AsyncResultHandler<String>() {
 		    		    		    		    public void handle(AsyncResult<String> asyncResult) {
 		    		    		    		        if (asyncResult.succeeded()) {
 		    		    		    		        	log.info("All verticles deployed.");

@@ -39,13 +39,15 @@
 				<div id="map-canvas" style="width: 100%; height: 600px"></div>
 			</div>
 			<div class="col-md-4">
-			<p>Date: <input type="text" id="datepicker"></p>
+				<!-- <h4 id="feedback" style="padding-left: 10px">
+				<span>You've selected:</span> <span id="select-result">none</span>.
+				</h4> -->
 				<div class="panel-group" style="padding-left: 10px;" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-date">Select a date</a>
+									href="#collapse-date">Select a date (From 21 April 2015 To 1 June 2015)</a>
 							</h4>
 						</div>
 						<div id="collapse-date" class="panel-collapse collapse">
@@ -63,13 +65,13 @@
 							<ul class="list-group">
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-time-mr')"><span class="badge"
-										id="mr_qty">267</span> Morning Rush</a></li>
+										id="mr_qty">359</span> Morning Rush</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-time-er')"><span class="badge"
-										id="er_qty">440</span> Evening Rush</a></li>
+										id="er_qty">554</span> Evening Rush</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-time-op')"><span class="badge"
-										id="op_qty">2011</span> Off Peak</a></li>
+										id="op_qty">2533</span> Off Peak</a></li>
 							</ul>
 						</div>
 					</div>
@@ -84,25 +86,25 @@
 							<ul class="list-group">
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-mon')"><span class="badge"
-										id="mon_qty">402</span> Monday</a></li>
+										id="mon_qty">517</span> Monday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-tue')"><span class="badge"
-										id="tue_qty">268</span> Tuesday</a></li>
+										id="tue_qty">313</span> Tuesday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-wed')"><span class="badge"
-										id="wed_qty">368</span> Wednesday</a></li>
+										id="wed_qty">490</span> Wednesday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-thu')"><span class="badge"
-										id="thu_qty">401</span> Thursday</a></li>
+										id="thu_qty">506</span> Thursday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-fri')"><span class="badge"
-										id="fri_qty">429</span> Friday</a></li>
+										id="fri_qty">543</span> Friday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-sat')"><span class="badge"
-										id="sat_qty">497</span> Saturday</a></li>
+										id="sat_qty">637</span> Saturday</a></li>
 								<li><a class="list-group-item"
 									onclick="sendRequest('bmrh-day-sun')"><span class="badge"
-										id="sun_qty">353</span> Sunday</a></li>
+										id="sun_qty">440</span> Sunday</a></li>
 							</ul>
 						</div>
 					</div>
@@ -110,42 +112,35 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapse-road">Select a street</a>
+									href="#collapse-road">Select a street (With harvested records over 10)</a>
 							</h4>
 						</div>
 						<div id="collapse-road" class="panel-collapse collapse">
 							<ul class="list-group">
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-airport_link_on_ramp')"><span class="badge" id="airport_link_on_ramp_qty">10</span>AIRPORT LINK ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-anzac_avenue_off_ramp')"><span class="badge" id="anzac_avenue_off_ramp_qty">8</span>ANZAC AVENUE OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-bay_street')"><span class="badge" id="bay_street_qty">7</span>BAY STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-boundary_street')"><span class="badge" id="boundary_street_qty">13</span>BOUNDARY STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-bradfield_highway_on_ramp')"><span class="badge" id="bradfield_highway_on_ramp_qty">101</span>BRADFIELD HIGHWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-bruce_highway_on_ramp')"><span class="badge" id="bruce_highway_on_ramp_qty">9</span>BRUCE HIGHWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-campbell_street_off_ramp')"><span class="badge" id="campbell_street_off_ramp_qty">34</span>CAMPBELL STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-college_road_off_ramp')"><span class="badge" id="college_road_off_ramp_qty">12</span>COLLEGE ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-cotlew_street_off_ramp')"><span class="badge" id="cotlew_street_off_ramp_qty">7</span>COTLEW STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-countess_street_on_ramp')"><span class="badge" id="countess_street_on_ramp_qty">7</span>COUNTESS STREET ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-east_west_arterial_road_off_ramp')"><span class="badge" id="east_west_arterial_road_off_ramp_qty">12</span>EAST WEST ARTERIAL ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-elizabeth_street_off_ramp')"><span class="badge" id="elizabeth_street_off_ramp_qty">33</span>ELIZABETH STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-faisal_hatia_way_off_ramp')"><span class="badge" id="faisal_hatia_way_off_ramp_qty">8</span>FAISAL HATIA WAY OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-gateway_motorway_on_ramp')"><span class="badge" id="gateway_motorway_on_ramp_qty">27</span>GATEWAY MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-gilchrist_avenue_off_ramp')"><span class="badge" id="gilchrist_avenue_off_ramp_qty">6</span>GILCHRIST AVENUE OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-airport_link_on_ramp')"><span class="badge" id="airport_link_on_ramp_qty">19</span>AIRPORT LINK ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-boundary_street')"><span class="badge" id="boundary_street_qty">18</span>BOUNDARY STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-bradfield_highway_on_ramp')"><span class="badge" id="bradfield_highway_on_ramp_qty">125</span>BRADFIELD HIGHWAY ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-campbell_street_off_ramp')"><span class="badge" id="campbell_street_off_ramp_qty">37</span>CAMPBELL STREET OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-college_road_off_ramp')"><span class="badge" id="college_road_off_ramp_qty">19</span>COLLEGE ROAD OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-east_west_arterial_road_off_ramp')"><span class="badge" id="east_west_arterial_road_off_ramp_qty">13</span>EAST WEST ARTERIAL ROAD OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-elizabeth_street_off_ramp')"><span class="badge" id="elizabeth_street_off_ramp_qty">49</span>ELIZABETH STREET OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-gateway_motorway_on_ramp')"><span class="badge" id="gateway_motorway_on_ramp_qty">31</span>GATEWAY MOTORWAY ON RAMP</a></li>
 <li><a class="list-group-item" onclick="sendRequest('bmrh-road-gympie_arterial_road_on_ramp')"><span class="badge" id="gympie_arterial_road_on_ramp_qty">15</span>GYMPIE ARTERIAL ROAD ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-hale_street_on_ramp')"><span class="badge" id="hale_street_on_ramp_qty">35</span>HALE STREET ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-herschel_street_off_ramp')"><span class="badge" id="herschel_street_off_ramp_qty">10</span>HERSCHEL STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-logan_motorway_on_ramp')"><span class="badge" id="logan_motorway_on_ramp_qty">30</span>LOGAN MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-makerston_street_emergency_vehicle_ramp')"><span class="badge" id="makerston_street_emergency_vehicle_ramp_qty">7</span>MAKERSTON STREET EMERGENCY VEHICLE RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-hale_street_on_ramp')"><span class="badge" id="hale_street_on_ramp_qty">44</span>HALE STREET ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-herschel_street_off_ramp')"><span class="badge" id="herschel_street_off_ramp_qty">12</span>HERSCHEL STREET OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-logan_motorway_on_ramp')"><span class="badge" id="logan_motorway_on_ramp_qty">33</span>LOGAN MOTORWAY ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-makerston_street_emergency_vehicle_ramp')"><span class="badge" id="makerston_street_emergency_vehicle_ramp_qty">15</span>MAKERSTON STREET EMERGENCY VEHICLE RAMP</a></li>
 <li><a class="list-group-item" onclick="sendRequest('bmrh-road-margaret_street_off_ramp')"><span class="badge" id="margaret_street_off_ramp_qty">17</span>MARGARET STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-minjungbal_drive')"><span class="badge" id="minjungbal_drive_qty">16</span>MINJUNGBAL DRIVE</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-mudgeeraba_road_off_ramp')"><span class="badge" id="mudgeeraba_road_off_ramp_qty">6</span>MUDGEERABA ROAD OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-musgrave_road_on_ramp')"><span class="badge" id="musgrave_road_on_ramp_qty">7</span>MUSGRAVE ROAD ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway')"><span class="badge" id="pacific_motorway_qty">15</span>PACIFIC MOTORWAY</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway_on_ramp')"><span class="badge" id="pacific_motorway_on_ramp_qty">338</span>PACIFIC MOTORWAY ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-minjungbal_drive')"><span class="badge" id="minjungbal_drive_qty">20</span>MINJUNGBAL DRIVE</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway')"><span class="badge" id="pacific_motorway_qty">20</span>PACIFIC MOTORWAY</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-pacific_motorway_on_ramp')"><span class="badge" id="pacific_motorway_on_ramp_qty">416</span>PACIFIC MOTORWAY ON RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-roundabout')"><span class="badge" id="roundabout_qty">2129</span>ROUNDABOUT</a></li>
 <li><a class="list-group-item" onclick="sendRequest('bmrh-road-strathpine_road_off_ramp')"><span class="badge" id="strathpine_road_off_ramp_qty">12</span>STRATHPINE ROAD OFF RAMP</a></li>
 <li><a class="list-group-item" onclick="sendRequest('bmrh-road-sunshine_motorway_on_ramp')"><span class="badge" id="sunshine_motorway_on_ramp_qty">62</span>SUNSHINE MOTORWAY ON RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-turbot_street_off_ramp')"><span class="badge" id="turbot_street_off_ramp_qty">46</span>TURBOT STREET OFF RAMP</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wharf_street')"><span class="badge" id="wharf_street_qty">17</span>WHARF STREET</a></li>
-<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wynnum_road_off_ramp')"><span class="badge" id="wynnum_road_off_ramp_qty">8</span>WYNNUM ROAD OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-turbot_street_off_ramp')"><span class="badge" id="turbot_street_off_ramp_qty">49</span>TURBOT STREET OFF RAMP</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wharf_street')"><span class="badge" id="wharf_street_qty">24</span>WHARF STREET</a></li>
+<li><a class="list-group-item" onclick="sendRequest('bmrh-road-wynnum_road_off_ramp')"><span class="badge" id="wynnum_road_off_ramp_qty">12</span>WYNNUM ROAD OFF RAMP</a></li>
+
 							</ul>
 						</div>
 					</div>

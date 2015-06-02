@@ -44,7 +44,7 @@ $(function initialize() {
 
 function initSocket() {
 	socket = new WebSocket('ws://144.6.227.137:9998/ws/?realtime');
-	// socket = new WebSocket('ws://127.0.0.1:9998/ws/?realtime');
+//	 socket = new WebSocket('ws://127.0.0.1:9998/ws/?realtime');
 	socket.onopen = function(event) {
 		console.log("socketopen");
 		// document.getElementById("serviceStatus").innerHTML=' ON';

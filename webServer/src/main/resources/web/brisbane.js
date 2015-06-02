@@ -21,8 +21,8 @@ $(function initialize() {
 });
 
 function initSocket(){
-//    socket = new WebSocket('ws://144.6.227.137:9998/ws/');
-	socket = new WebSocket('ws://127.0.0.1:9998/ws/');
+    socket = new WebSocket('ws://144.6.227.137:9998/ws/');
+//	socket = new WebSocket('ws://127.0.0.1:9998/ws/');
     socket.onopen = function (event) {
         console.log("socketopen");
 //        document.getElementById("serviceStatus").innerHTML=' ON';
@@ -68,28 +68,55 @@ function sendRequest(request) {
 //	});
 
 function markSpot(spot) {
-	var loc = new google.maps.LatLng(spot.lat, spot.lng);
+	var loc = new google.maps.LatLng(spot.lat, spot.lon);
+	
+	var spotIcon = {
+    	    path: google.maps.SymbolPath.CIRCLE,
+    	    fillColor: 'red',
+    	    fillOpacity: 0.9,
+    	    scale: 3,
+    	    strokeColor: 'green',
+    	    strokeWeight: 1
+    	}
+	if (spot.congestion) {
+		spotIcon = 'congestion_flag.png';
+	}
+	
+	var windowContent = "<p><b>Time: </b>"+ spot.time + "</p>" + 
+	"<p><b>Street Name: </b>"+ spot.road + "</p>" + 
+	"<p><b>User: </b>"+ spot.user + "</p>" + 
+	"<p><b>Text: </b>"+ spot.text + "</p>";
+	
+	var infowindow = new google.maps.InfoWindow({
+	      content: windowContent
+	  });
+	
+	var titleString = "Road tweet";
+	if (spot.congestion) {
+		titleString = "Possible congestion at " + spot.time;
+	}
+	
 	var options = {
             map: gMap,
 			position: loc,
-            icon: {
-            	    path: google.maps.SymbolPath.CIRCLE,
-            	    fillColor: 'red',
-            	    fillOpacity: 0.9,
-            	    scale: 3,
-            	    strokeColor: 'green',
-            	    strokeWeight: 1
-            	}
+            icon: spotIcon,
+            title: titleString
         }
+	
     var marker = new google.maps.Marker(options);
+
+	google.maps.event.addListener(marker, 'click', function() {
+	    infowindow.open(gMap, marker);
+	  });
+	
 	markers.push(marker);
 }
 
 //Sets the map on all markers in the array.
 function setAllMap(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
+for (var i = 0; i < markers.length; i++) {
+  markers[i].setMap(map);
+}
 }
 
 // Removes the markers from the map, but keeps them in the array.

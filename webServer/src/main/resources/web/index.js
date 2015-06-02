@@ -3,8 +3,8 @@
  * @author Fengmin Deng (Student ID: 659332)
  */
 
-//var url = "http://144.6.227.137:9999/"
-var url = "http://127.0.0.1:9999/"
+var url = "http://144.6.227.137:9999/"
+//var url = "http://127.0.0.1:9999/"
 
 $(function() {
 //	document.getElementById("date").innerHTML = "Harvested Tweets from " + 
@@ -20,9 +20,10 @@ $(function() {
 			var response = xmlhttp.responseText;
 			console.log('response: ', response);
 			var numTweets = JSON.parse(response);
-			document.getElementById("bn").innerHTML = "Brisbane: " + numTweets.bn;
-			document.getElementById("mn").innerHTML = "Melbourne: " + numTweets.mn;
-			document.getElementById("sn").innerHTML = "Sydney: " + numTweets.sn;
+			// minus 3 for 3 _design documents in the databases
+			document.getElementById("bn").innerHTML = "Brisbane: " + (numTweets.bn - 3);
+			document.getElementById("mn").innerHTML = "Melbourne: " + (numTweets.mn - 3);
+			document.getElementById("sn").innerHTML = "Sydney: " + (numTweets.sn - 3);
 	  }
 	}
 	xmlhttp.open("GET", url + "?num_tweets", true);
